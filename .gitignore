@@ -1,0 +1,21 @@
+# 编译产物
+/bin/
+/dist/
+*.exe
+*.test
+coverage.out
+
+# 本地环境配置（可能包含密码）
+.env
+.env.*
+!.env.example
+
+# 日志和编辑器配置
+*.log
+
+# 编译文件
+tmp/
+# 本地前端部署包
+/nginx-1.18.0/
+
+docs/
