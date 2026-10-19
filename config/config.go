@@ -12,21 +12,31 @@ type Config struct {
 	RedisConfig
 }
 
-type ServerConfig struct{}
+type ServerConfig struct {
+	ServerPort string
+}
 
-type MysqlConfig struct{}
+type MysqlConfig struct {
+	DSN string
+}
 
 type RedisConfig struct{}
 
-func getEnv(env string) string {
-	return os.Getenv(env)
-}
-
-func Load() (string, error) {
+func LoadEnv() (*Config, error) {
 	err := godotenv.Load(".env")
 	if err != nil {
-		return "", nil
+		return &Config{}, nil
 	}
-	port := getEnv("API_PORT")
-	return port, nil
+	server_port := GetEnv("API_PORT")
+	db_config := loadDBConfig() // 数据库配置
+	config := &Config{
+		ServerPort:  server_port,
+		DSN:         db_config.buildDSN(),
+		RedisConfig: RedisConfig{},
+	}
+	return config, nil
+}
+
+func GetEnv(env string) string {
+	return os.Getenv(env)
 }

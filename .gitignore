@@ -19,3 +19,4 @@ tmp/
 /nginx-1.18.0/
 
 docs/
+init.sql

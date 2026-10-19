@@ -12,5 +12,6 @@ func AppRouter() *gin.Engine {
 	r.GET("/", func(ctx *gin.Context) {
 		ctx.String(http.StatusOK, "黑马点评加载中....")
 	})
+	InitUserRouter(r)
 	return r
 }
