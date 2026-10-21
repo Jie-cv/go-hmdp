@@ -1,9 +1,34 @@
 package model
 
+// CREATE TABLE `tb_blog`  (
+//   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '主键',
+//   `shop_id` bigint(20) NOT NULL COMMENT '商户id',
+//   `user_id` bigint(20) UNSIGNED NOT NULL COMMENT '用户id',
+//   `title` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '标题',
+//   `images` varchar(2048) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '探店的照片，最多9张，多张以\",\"隔开',
+//   `content` varchar(2048) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '探店的文字描述',
+//   `liked` int(8) UNSIGNED NULL DEFAULT 0 COMMENT '点赞数量',
+//   `comments` int(8) UNSIGNED NULL DEFAULT NULL COMMENT '评论数量',
+//   `create_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+//   `update_time` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+//   PRIMARY KEY (`id`)
+// ) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci ROW_FORMAT = Compact;
+
+import "time"
+
 type TbBlog struct {
-	Id uint64 `gorm:"column:id;type:bigint unsigned;not null;primaryKey;autoIncrement;commont:主键" json:"id"`
+	ID         uint64    `json:"id"`
+	ShopID     int64     `json:"shopId"`
+	UserID     uint64    `json:"userId"`
+	Title      string    `json:"title"`
+	Images     string    `json:"images"`
+	Content    string    `json:"content"`
+	Liked      *uint32   `gorm:"default:0" json:"liked"`
+	Comments   *uint32   `json:"comments"`
+	CreateTime time.Time `gorm:"->" json:"createTime"`
+	UpdateTime time.Time `gorm:"->" json:"updateTime"`
 }
 
-func (t *TbBlog) TableName() string {
+func (TbBlog) TableName() string {
 	return "tb_blog"
 }
