@@ -13,5 +13,6 @@ func AppRouter() *gin.Engine {
 		ctx.String(http.StatusOK, "黑马点评加载中....")
 	})
 	InitUserRouter(r)
+	InitShopRouter(r)
 	return r
 }
