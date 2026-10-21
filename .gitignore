@@ -20,3 +20,11 @@ tmp/
 
 docs/
 init.sql
+
+# Python 虚拟环境
+.venv/
+venv/
+
+# Python 缓存和字节码
+__pycache__/
+*.py[cod]

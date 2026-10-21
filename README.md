@@ -25,10 +25,7 @@ go-hmdp/
 │   ├── init_schema.go          # 建表初始化
 │   ├── init_data.go            # 初始数据导入
 │   └── sql/
-│       ├── schema/             # 自行编写的建表 SQL
-│       │   ├── user.sql
-│       │   ├── shop.sql
-│       │   └── blog.sql
+│       ├── schema/             # 11 张表的建表 SQL，按 4 个业务模块分文件
 │       └── data/               # 初始数据 SQL
 ├── docs/                       # 本地说明与接口参考
 ├── nginx-1.18.0/                # 本地前端和 Nginx
@@ -52,9 +49,9 @@ go run .
 
 ## 数据库结构与初始化
 
-表结构由自行编写的 `scripts/sql/schema/*.sql` 管理，初始数据放在 `scripts/sql/data/`。一个文件可以包含多张相关表，按 user、shop、blog 等业务模块划分。
+表结构由 `scripts/sql/schema/*.sql` 管理，按用户、商铺、探店、优惠券与订单四个业务模块分文件，每个文件包含相关的多张表。字段、类型、默认值和注释沿用根目录 `init.sql`，不包含其中的删表语句和测试数据。初始数据已按相同业务模块拆分到 `scripts/sql/data/`，保留原始 INSERT 内容。详细分类与执行顺序见 [SQL 说明](scripts/sql/README.md)。
 
-- 当前 schema 下三个 SQL 文件仍为空，需要先补充建表语句。
+- 当前 schema 已包含全部 11 张表的建表语句，适用于空数据库。
 - 当前 GORM 初始化仅连接数据库，未启用 `AutoMigrate`，也不会自动执行 SQL 文件。
 - 可以先通过数据库工具执行自行编写的 SQL：先建表，再插入初始数据。
 - 已有表的结构变更需要使用 `ALTER TABLE` 或后续迁移脚本；修改原始 `CREATE TABLE` 不会自动更新数据库。
